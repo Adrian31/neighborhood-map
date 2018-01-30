@@ -29,5 +29,6 @@ var locations = [
         lng: 0.003154,
         type: 'Entertainment'
     },*/
-    {title: 'Run Amuk', location: {lat: -32.0722751, lng: -115.7509418}},
-]
+    {title: 'Run Amuk', location: {lat: -32.0722797, lng: 115.7531305}},
+    //{title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+];
