@@ -1,72 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <!--<meta charset="UTF-8">-->
-      <title>Udacity Neighborhood Map</title>
+      <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Udacity Neighborhood Map</title>
       <link rel="stylesheet" type="text/css" href="css/style.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
    </head>
    <body>
-     <div class="container">
-     <div class="options-box">
-      <h1>Find Your New NYC Home</h1>
-      <div>
-        <input id="show-listings" type="button" value="Show Listings">
-        <input id="hide-listings" type="button" value="Hide Listings">
-        <hr>
-        <span class="text"> Draw a shape to search within it for homes!</span>
-        <input id="toggle-drawing"  type="button" value="Drawing Tools">
+
+     <div class="container-fluid">
+       <div class="row">
+
+         <div class="col-md-2 sidebar">
+
+           <div class="col search-area">
+             <span>Search for nearby places</span>
+            <input type="text" name="searchbar" id="searchbar" class="form-control" data-bind="value: searchText, valueUpdate: 'afterkeydown', event: {keyup: filterList}" placeholder="Name of place">
+              <ul data-bind="foreach: placeMarkers" class="main-nav">
+                <li class="list-items main-nav-item" data-bind="css: {display: none}, text: title, visible:show"></li>
+              </ul>
+           </div>
+          </div>
+
+         <div class="col-md-10" id="map">
+        </div>
       </div>
-      <hr>
-      <div>
-        <input id="zoom-to-area-text" type="text" placeholder="Enter your favorite area!">
-        <input id="zoom-to-area" type="button" value="Zoom">
-      </div>
-      <hr>
-      <div>
-        <span class="text"> Within </span>
-        <select id="max-duration">
-          <option value="10">10 min</option>
-          <option value="15">15 min</option>
-          <option value="30">30 min</option>
-          <option value="60">1 hour</option>
-        </select>
-        <select id="mode">
-          <option value="DRIVING">drive</option>
-          <option value="WALKING">walk</option>
-          <option value="BICYCLING">bike</option>
-          <option value="TRANSIT">transit ride</option>
-        </select>
-        <span class="text">of</span>
-        <input id="search-within-time-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY">
-        <input id="search-within-time" type="button" value="Go">
-      </div>
-      <hr>
-      <div>
-        <span class="text">Search for nearby places</span>
-          <input id="places-search" type="text" placeholder="Ex: Pizza Delivery in NYC">
-          <input id="go-places" type="button" value="Go">
-      </div>
+
     </div>
 
-    <!-- <div>
-      <div id="mapDiv" data-bind="style:{width:'300px',height:'300px'},map:myMap"></div>
-    </div>-->
-    <div id="map"></div>
-    <!--<input data-bind="value: Lat" />
-    <input data-bind="value: Lng" />
-    <div data-bind="latitude: viewModel.Lat, longitude:viewModel.Lng, map:map" ></div>-->
+    <script async src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-  </div>
-
-     <script src="js/knockout/knockout-3.4.2.js"></script>
      <script src="js/jquery/jquery-3.3.1.min.js"></script>
+     <script src="js/knockout/knockout-3.4.2.js"></script>
      <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 
      <script src="js/menu.js"></script>
      <script src="js/maps.js"></script>
      <script src="js/styles.js"></script>
      <script src="js/markers.js"></script>
+
+     <script>
+
+     </script>
 
      <script async defer
         src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDY47KOy7YFpMBTBNEX5Ql_4YTH1Ym4bXY&callback=initMap">
