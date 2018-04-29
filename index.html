@@ -18,7 +18,7 @@
              <span>Search for nearby places</span>
             <input type="text" name="searchbar" id="searchbar" class="form-control" data-bind="value: searchText, valueUpdate: 'afterkeydown', event: {keyup: filterList}" placeholder="Name of place">
               <ul data-bind="foreach: placeMarkers" class="main-nav">
-                <li class="list-items main-nav-item" data-bind="css: {display: none}, text: title, visible:show"></li>
+                <li class="list-items main-nav-item" data-bind="text: title, visible:show"></li>
               </ul>
            </div>
           </div>

@@ -13,10 +13,6 @@ var map;
 // self global polygon variable is to ensure only ONE polygon is rendered.
 //var polygon = null;
 
-// Create placemarkers array to use in multiple functions to have control
-//over the number of places that show.
-//var placeMarkers = [];
-
 var viewModel = function() {
   var self = this;
 
@@ -37,7 +33,6 @@ var viewModel = function() {
       show: ko.observable(locations[i].show),
       animation: google.maps.Animation.DROP
     });
-    //console.log(marker);
 
     self.placeMarkers.push(marker);
   };
@@ -45,7 +40,16 @@ var viewModel = function() {
   // create a searchText for the input search field
   self.searchText = ko.observable('');
 
+  // to show all the markers
+  self.setAllShow = function(marker) {
+     for (var i = 0; i < self.placeMarkers.length; i++) {
+         self.placeMarkers[i].show(marker);
+         self.placeMarkers[i].setVisible(marker);
+     }
+   };
+
   self.filterList = function() {
+
       //variable for search text
       var currentText = self.searchText();
       //infowindow.close();
@@ -55,6 +59,7 @@ var viewModel = function() {
           self.setAllShow(true);
       } else {
           for (var i = 0; i < self.placeMarkers.length; i++) {
+            console.log(self.placeMarkers[i].show());
               // to check whether the searchText is there in the placeMarkers
               if (self.placeMarkers[i].title.toLowerCase().indexOf(currentText.toLowerCase()) > -1) {
                   self.placeMarkers[i].show(true);
@@ -67,17 +72,9 @@ var viewModel = function() {
           }
       }
       //infowindow.close();
-      self.placeMarkers[i].setVisible(true);
   };
 
-
-   // to show all the markers
-   self.setAllShow = function(marker) {
-      for (var i = 0; i < self.placeMarkers.length; i++) {
-          self.placeMarkers[i].show(marker);
-          self.placeMarkers[i].setVisible(marker);
-      }
-    };
+  self.filterList();
 
    // Style the markers a bit. self will be our listing marker icon.
    var defaultIcon = makeMarkerIcon('0091ff');
@@ -107,14 +104,14 @@ var viewModel = function() {
    }
 };
 
-     function initMap() {
+function initMap() {
 
-             // Constructor creates a new map - only center and zoom are required.
-             map = new google.maps.Map(document.getElementById('map'), {
-               center: {lat: -32.0501672, lng: 115.7587907},
-               zoom: 13,
-               styles: styles,
-               mapTypeControl: false
-             });
-           ko.applyBindings(new viewModel());
-     }
+       // Constructor creates a new map - only center and zoom are required.
+       map = new google.maps.Map(document.getElementById('map'), {
+         center: {lat: -32.0501672, lng: 115.7587907},
+         zoom: 13,
+         styles: styles,
+         mapTypeControl: false
+       });
+     ko.applyBindings(new viewModel());
+}
