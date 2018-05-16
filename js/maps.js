@@ -20,6 +20,7 @@ var viewModel = function() {
   self.errorDisplay = ko.observable('');
   self.placeMarkers = [];
 
+  var largeInfoWindow = new google.maps.InfoWindow();
   // The following group uses the location array to create an array of markers on initialize.
   for (var i = 0; i < locations.length; i++) {
     //var title = locations[i].title;
@@ -35,7 +36,28 @@ var viewModel = function() {
     });
 
     self.placeMarkers.push(marker);
+    // Create an onclick event to open an infowindow at each marker
+    marker.addListener('click', function(){
+      self.populateInfoWindow(this, largeInfoWindow);
+      });
+
   };
+
+  //This function populates the infowindow when the marker is clicked. We'll only allow
+  // one infowindow which will open at the marker that is clicked, and populate based
+  // on that markers position
+  self.populateInfoWindow = function(marker, infowindow){
+    // Check to make sure the infowindow is not already open on this marker
+    if(infowindow.marker != marker) {
+      infowindow.marker = marker;
+      infowindow.setContent('<div>' + marker.title + '</div>');
+      infowindow.open(map, marker);
+      // Make sure the marker property is cleared if the infowindow is closed
+      infowindow.addListener('closeClick', function(){
+        infowindow.setMarker(null);
+      });
+    }
+  }
 
   // create a searchText for the input search field
   self.searchText = ko.observable('');
@@ -76,20 +98,20 @@ var viewModel = function() {
 
   self.filterList();
 
-   // Style the markers a bit. self will be our listing marker icon.
-   var defaultIcon = makeMarkerIcon('0091ff');
-   // Create a "highlighted location" marker color for when the user
-   // mouses over the marker.
-   var highlightedIcon = makeMarkerIcon('FFFF24');
-
-     // Two event listeners - one for mouseover, one for mouseout,
-     // to change the colors back and forth.
-     marker.addListener('mouseover', function() {
-       self.setIcon(highlightedIcon);
-     });
-     marker.addListener('mouseout', function() {
-       self.setIcon(defaultIcon);
-     });
+   // // Style the markers a bit. self will be our listing marker icon.
+   // var defaultIcon = makeMarkerIcon('0091ff');
+   // // Create a "highlighted location" marker color for when the user
+   // // mouses over the marker.
+   // var highlightedIcon = makeMarkerIcon('FFFF24');
+   //
+   //   // Two event listeners - one for mouseover, one for mouseout,
+   //   // to change the colors back and forth.
+   //   marker.addListener('mouseover', function() {
+   //     self.setIcon(highlightedIcon);
+   //   });
+   //   marker.addListener('mouseout', function() {
+   //     self.setIcon(defaultIcon);
+   //   });
 
 
    function makeMarkerIcon(markerColor) {
