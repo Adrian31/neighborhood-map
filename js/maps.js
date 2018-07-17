@@ -22,8 +22,8 @@ var viewModel = function() {
       position: locations[i].location,
       show: ko.observable(locations[i].show),
       animation: google.maps.Animation.DROP,
-      zomatoId: locations[i].zomid
-      // info: info
+      zomatoId: locations[i].zomid,
+      selected: locations[i].selected
     });
 
     self.placeMarkers.push(marker);
@@ -40,7 +40,6 @@ var viewModel = function() {
     marker.addListener('click', function(){
       self.populateInfoWindow(this, largeInfoWindow);
     });
-    // console.log(placeMarkers());
   };
 
   // Animate marker when selected
@@ -49,6 +48,7 @@ var viewModel = function() {
       ele.setAnimation(null);
     } else {
       ele.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function(){ marker.setAnimation(null); }, 750);
     }
   }
 
@@ -58,24 +58,21 @@ var viewModel = function() {
   //
   self.populateInfoWindow = function(marker, infowindow){
     // Check to make sure the infowindow is not already open on this marker
-
-      console.log(marker);
       // Ajax request from Zomato
       $.ajax({
         url: "https://developers.zomato.com/api/v2.1/reviews?res_id=" + marker.zomatoId,
         dataType: 'json',
-        // async: true,
-        beforeSend: function(xhr){xhr.setRequestHeader('user-key', 'b89e6ac3af9aa9810070ab995f44111c');},  // This inserts the api key into the HTTP header
+        async: true,
+        beforeSend: function(xhr){xhr.setRequestHeader('user-key', 'b89e6ac3af9aa9810070ab995f44111c');},
         success: function( response ) {
           var reviews = response.user_reviews;
-        // console.log(marker.zomatoId);
-          var contentString = '<div> <h3>' + marker.title + ' reviews</h2>';
+
+          var contentString = '<div> <h3 class="venue-name">' + marker.title + ' reviews</h2>';
 
            for (var i = 0; i < 3; i++){
              contentString = contentString + '<div class="infowindow-data">';
               contentString = contentString + '<h6>User: ' + reviews[i].review.user.name + '</h4>';
               contentString = contentString + '<p>Rating: ' + reviews[i].review.rating + '</p>';
-              // contentString = contentString + '<p>Review: ' + reviews[i].review.review_text + '</p>';
             contentString = contentString + '<div>';
            };
            contentString = contentString + '</div>';
@@ -88,7 +85,24 @@ var viewModel = function() {
             contentString = "<div><p>Hmm! Looks like Zomato isn't available right now.</p></div>"
         }
       });
+      $.ajax({
+        url: "https://developers.zomato.com/api/v2.1/restaurant?res_id=" + marker.zomatoId,
+        dataType: 'json',
+        // async: true,
+        beforeSend: function(xhr){xhr.setRequestHeader('user-key', 'b89e6ac3af9aa9810070ab995f44111c');},
+        success: function( response ) {
+          var average = response.user_rating.aggregate_rating;
+          console.log(average);
+          // $('<div><p>The average rating is ' + average + '</p></div>').insertAfter($('.venue-name'));
+          $( '.venue-name' ).append('<div><p>The average rating is ' + average + '</p></div>');
 
+        },
+        // warn if there is error in recievng json
+        error: function(e) {
+            self.errorDisplay("Hmm! Looks like Zomato isn't available right now.");
+            contentString = "<div><p>Hmm! Looks like Zomato isn't available right now.</p></div>"
+        }
+      });
 
       //infowindow.setContent('<iframe href="' + $.ajax(). + '"></iframe>');
       infowindow.open(map, marker);
@@ -109,7 +123,7 @@ var viewModel = function() {
     marker.addListener('click', function() {
         //set this marker to the selected state
 
-        self.setMarker(marker);
+        self.setSelected(marker);
     });
   };
 
@@ -148,15 +162,15 @@ var viewModel = function() {
       }
   };
 
-  // var infoWindowPopulator = function(marker, largeInfoWindow){
-  //   //add API items to each marker
-  //   self.populateInfoWindow(this, largeInfoWindow);
-  // }
-  //
-  // //  iterate through mapArray and add marker api info
-  // for (var i = 0; i < self.placeMarkers.length; i++) {
-  //   infoWindowPopulator(self.placeMarkers[i], largeInfoWindow);
-  // }
+
+
+  self.currentLocation = self.placeMarkers[0];
+  // Open infowindow from clicking on list item.
+  self.setSelected = function(location) {
+    self.currentLocation = location;
+    location = true;
+    self.populateInfoWindow(this, largeInfoWindow);
+  };
 
   self.filterList();
 };
