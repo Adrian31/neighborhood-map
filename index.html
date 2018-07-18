@@ -5,7 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Udacity Neighborhood Map</title>
       <link rel="stylesheet" type="text/css" href="css/style.css">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
    </head>
    <body>
 
@@ -16,7 +16,7 @@
 
            <div class="col search-area">
              <h1 class="title" >F O O D <br> A R O U N D <br> F R E O </h1>
-            <input type="text" name="searchbar" id="searchbar" class="form-control" data-bind="value: searchText, valueUpdate: 'afterkeydown', event: {keyup: filterList}" placeholder="Name of place">
+            <input type="text" name="searchbar" id="searchbar" class="form-control" data-bind="value: searchText, valueUpdate: 'afterkeydown', event: {keyup: filterList}" placeholder="Search">
               <ul data-bind="foreach: placeMarkers" class="main-nav">
                 <li class="list-items main-nav-item" data-bind="text: title, click: $parent.setSelected, visible:show"></li>
               </ul>
@@ -32,11 +32,8 @@
 
     </div>
 
-    <script async src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
      <script src="js/jquery/jquery-3.3.1.min.js"></script>
      <script src="js/knockout/knockout-3.4.2.js"></script>
-     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 
      <script src="js/markers.js"></script>
      <script src="js/menu.js"></script>
@@ -45,10 +42,7 @@
 
      <script async defer
         src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDY47KOy7YFpMBTBNEX5Ql_4YTH1Ym4bXY&callback=initMap">
-      </script>
-
-    <!--  <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?v=3&amp;key=AIzaSyDY47KOy7YFpMBTBNEX5Ql_4YTH1Ym4bXY&amp;callback=startApp" onerror="googleError()">
-    </script>-->
-
+     </script>
+     <script async src="js/bootstrap/bootstrap.min.js"></script>
    </body>
 </html>
