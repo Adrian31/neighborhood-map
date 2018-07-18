@@ -23,7 +23,8 @@ var viewModel = function() {
       show: ko.observable(locations[i].show),
       animation: google.maps.Animation.DROP,
       zomatoId: locations[i].zomid,
-      selected: locations[i].selected
+      selected: locations[i].selected,
+      icon: 'images/anchor.png'
     });
 
     self.placeMarkers.push(marker);
@@ -48,10 +49,9 @@ var viewModel = function() {
       ele.setAnimation(null);
     } else {
       ele.setAnimation(google.maps.Animation.BOUNCE);
-      setTimeout(function(){ marker.setAnimation(null); }, 750);
+      setTimeout(function(){ ele.setAnimation(null); }, 750);
     }
   }
-
   //This function populates the infowindow when the marker is clicked. We'll only allow
   // one infowindow which will open at the marker that is clicked, and populate based
   // on that markers position
@@ -104,7 +104,6 @@ var viewModel = function() {
         }
       });
 
-      //infowindow.setContent('<iframe href="' + $.ajax(). + '"></iframe>');
       infowindow.open(map, marker);
       // Make sure the marker property is cleared if the infowindow is closed
       infowindow.addListener('closeClick', function(){
@@ -170,6 +169,7 @@ var viewModel = function() {
     self.currentLocation = location;
     location = true;
     self.populateInfoWindow(this, largeInfoWindow);
+    toggleBounce(this);
   };
 
   self.filterList();
@@ -178,11 +178,10 @@ var viewModel = function() {
 function initMap() {
        // Constructor creates a new map - only center and zoom are required.
        map = new google.maps.Map(document.getElementById('map'), {
-         center: {lat: -32.04199, lng: 115.7507386},
+         center: {lat: -32.0388517, lng: 115.7789864},
          zoom: 13,
          styles: styles,
          mapTypeControl: false
        });
      ko.applyBindings(new viewModel());
 }
-// b89e6ac3af9aa9810070ab995f44111c
