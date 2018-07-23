@@ -2,26 +2,26 @@
 
 This page shows a map of some great cafes in Fremantle, Western Australia.
 
-#### Features
+### Features
 
-This application demonstrates the use of the Knockout framework, paired with Google maps and Zomato to bring you the best places to eat in Fremantle.
+This application demonstrates the use of the Knockout framework, paired with Google maps and Zomato to bring you the best places to eat in Fremantle. You can filter the locations through the search bar. Click on the markers or list items to display an infowindow with a Zomato rating for that venue.
 
-#### APIs
+### APIs
 
 This website uses Google Maps API to display the map and markers, and Zomato API to display the cafes average rating out of 5.
 
-#### Installation
+### Installation
 
 Download the code or clone it through Git. Open index.html and have fun.
 
 
-#### Code and Frameworks
+### Code and Frameworks
 
-### CSS
+#### CSS
 * bootstrap 4.1.2
 * style.css - for custom style
 
-### JavaScript
+#### JavaScript
 * jQuery 3.3.1
 * Knockout 3.4.2
 * maps.js
