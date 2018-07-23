@@ -17,11 +17,11 @@ Download the code or clone it through Git. Open index.html and have fun.
 
 #### Code and Frameworks
 
-###CSS
+### CSS
 * bootstrap 4.1.2
 * style.css - for custom style
 
-###JavaScript
+### JavaScript
 * jQuery 3.3.1
 * Knockout 3.4.2
 * maps.js
