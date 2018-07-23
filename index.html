@@ -8,42 +8,37 @@
       <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
    </head>
    <body>
-
-     <div class="container-fluid">
-       <div class="row">
-
+      <div class="container-fluid">
+      <div class="row">
          <div class="col-md-2 sidebar">
-
-           <div class="col search-area">
-             <h1 class="title" >F O O D <br> A R O U N D <br> F R E O </h1>
-            <input type="text" name="searchbar" id="searchbar" class="form-control" data-bind="value: searchText, valueUpdate: 'afterkeydown', event: {keyup: filterList}" placeholder="Search">
-              <ul data-bind="foreach: placeMarkers" class="main-nav">
-                <li class="list-items main-nav-item" data-bind="text: title, click: $parent.setSelected, visible:show"></li>
-              </ul>
-           </div>
-
-           <div class="logo-container">
-             <img src="images/logo.svg"/ class="logo"/>
-           </div>
-          </div>
-
-         <div class="col-md-10" id="map"></div>
+            <div class="col search-area">
+               <h1 class="title" >F O O D <br> A R O U N D <br> F R E O </h1>
+               <input type="text" name="searchbar" id="searchbar" class="form-control" data-bind="value: searchText, valueUpdate: 'afterkeydown', event: {keyup: filterList}" placeholder="Search">
+               <ul data-bind="foreach: placeMarkers" class="main-nav">
+                  <li class="list-items main-nav-item" data-bind="text: title, click: $parent.setSelectedMarker, visible:show"></li>
+               </ul>
+            </div>
+            <div class="logo-container">
+               <img src="images/logo.svg"/ class="logo"/>
+            </div>
+         </div>
+         <div class="col-md-10" id="map">
+            <div class="row">
+               <div class="col-sm-12" id="map"></div>
+               <div id="map-error">
+                  <h4 data-bind="text: errorDisplay"></h4>
+               </div>
+            </div>
+         </div>
       </div>
-
-    </div>
-
-     <script src="js/jquery/jquery-3.3.1.min.js"></script>
-     <script src="js/knockout/knockout-3.4.2.js"></script>
-
-     <script src="js/markers.js"></script>
-     <script src="js/menu.js"></script>
-     <script src="js/maps.js"></script>
-     <script src="js/styles.js"></script>
-
-     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDY47KOy7YFpMBTBNEX5Ql_4YTH1Ym4bXY&callback=initMap">
-     </script>
-     
-     <script async src="js/bootstrap/bootstrap.min.js"></script>
+      <script src="js/jquery/jquery-3.3.1.min.js"></script>
+      <script src="js/knockout/knockout-3.4.2.js"></script>
+      <script src="js/markers.js"></script>
+      <script src="js/menu.js"></script>
+      <script src="js/maps.js"></script>
+      <script src="js/styles.js"></script>
+      <script async defer
+         src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDY47KOy7YFpMBTBNEX5Ql_4YTH1Ym4bXY&callback=initMap" onerror="errorLoadingMap()" async defer></script>
+      <script async src="js/bootstrap/bootstrap.min.js"></script>
    </body>
 </html>
