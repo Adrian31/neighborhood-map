@@ -10,18 +10,18 @@ This application demonstrates the use of the Knockout framework, paired with Goo
 
 This website uses Google Maps API to display the map and markers, and Zomato API to display the cafes average rating out of 5.
 
-### Installation
+#### Installation
 
 Download the code or clone it through Git. Open index.html and have fun.
 
 
-### Code and Frameworks
+#### Code and Frameworks
 
-CSS
+###CSS
 * bootstrap 4.1.2
 * style.css - for custom style
 
-JavaScript
+###JavaScript
 * jQuery 3.3.1
 * Knockout 3.4.2
 * maps.js
